@@ -1,5 +1,8 @@
 - if session[:User] != nil
-    p = "Hello!" + session[:User]
+    p = "Logged in as:" + session[:User]
     form action="/logout" method="POST"
         button type="Submit" Log out
+
+    form action="/profile" method="GET"
+        button type="submit" Profile Page
 

@@ -6,14 +6,14 @@ require 'byebug'
 
 enable :sessions
 
-get("/index") do
+get("/") do
     slim(:index)
 end
 
 post("/login") do
-    db = SQLite3::Database.new("db(blogg.db")
+    db = SQLite3::Database.new("db/blogg.db")
     db.results_as_hash = true
-    result = db.execute("SELECT Username, Password, Authority FROM users WHERE Username = '#{params["Username"]}'")
+    result = db.execute("SELECT Username, Password, UserId, Authority, Nickname FROM users WHERE Username = '#{params["Username"]}'")
     if BCrypt::Password.new(result[0]["Password"]) == params["Password"]
         session[:User] = params["Username"]
     else
@@ -22,7 +22,7 @@ post("/login") do
     slim(:index, locals:{
         index: result
     })
-    redirect("/")
+    redirect("/posts")
 end
 
 post("/logout") do
@@ -35,14 +35,15 @@ get("/loginfailed") do
 end
 
 post("/create") do
-    db =SQLite3::Database.new("db/blogg.db") do
+    db =SQLite3::Database.new("db/blogg.db")
     db.results_as_hash = true
     new_name = params["Username"] 
-    new_password = ["Password1"]
+    new_password = params["Password1"]
+    new_nickname = params["Nickname"]
 
     if params["Password1"] == params["Password2"]
         new_password_hash = BCrypt::Password.create(new_password)
-        db.execute("INSERT INTO users (Username, Password, UserId, Authority, Nickname) VALUES (?,?,?,?,?)", new_name, new_password,new_userid, 1, new_nickname)
+        db.execute("INSERT INTO users (Username, Password, UserId, Authority, Nickname) VALUES (?,?,?,?,?)", new_name, new_password, 1, new_nickname)
         redirect("/posts")
     else
         redirect("/loginfailed")
