@@ -1,5 +1,6 @@
 body{
-    background-image: url("img/wallpaper_index");
+    background-image: url("img/wallpaper_index.jpg");
+    background-color: aqua;
     text-align: center;
     text-decoration: bold;
     font-family: 'Anton', sans-serif;

@@ -52,4 +52,17 @@ end
 
 get("/new") do
     slim(:new)
-end     
+end    
+
+post("/makepost") do
+    post_text = params["text"]
+    post_header = params["Header"]
+    post_username = session[:User]
+
+    db = SQLite3::Database.new("db/blogg.db")
+    db.results_as_hash = true
+    db.execute("INSERT INTO posts (text, Username) VALUES (?,?)", post_text, post_header,Time.now.to_s[0..9], post_username)
+    redirect("/posts")
+end
+  
+
