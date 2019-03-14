@@ -1,13 +1,33 @@
 - if session[:User] != nil
-    p = "Logged in as:" + session[:User]
-    form action="/logout" method="POST"
-        button type="Submit" Log out
-
+    h1.uservalidation = "Logged in as:    " + session[:User]
+    
     form action="/profile" method="GET"
         button type="submit" Profile Page
+    
+    h1 Make a post 
 
-    form action="/posts" Method="POST"
+    form action="/makepost" Method="POST"
         input name="Header" type="text" placeholder="Header"
         input name="text" type="text" placeholder="text"
-        input type="Submit" value="Makepost"
+        input type="Submit" value="Make an awesome post"
+
+    h1 Daily Posts
+
+    - bloggposts.each do |post|
+
+        article.posts
+            P = post["Username"]
+            h2 = post["Header"]
+            p = post["Text"]
+            p = post["TimeStamp"]
+
+    form action="/logout" method="POST"
+        button type="Submit" Log out
+ 
+            
+
+
+
+
+
 

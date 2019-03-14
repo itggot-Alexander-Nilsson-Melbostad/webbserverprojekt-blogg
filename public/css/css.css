@@ -1,8 +1,15 @@
 body{
-    background-image: url("img/wallpaper_index.jpg");
     background-color: aqua;
     text-align: center;
     text-decoration: bold;
     font-family: 'Anton', sans-serif;
 }
 
+h1.uservalidation{
+    padding-left: 0px;
+    text-align: left;
+}
+
+article.posts{
+    background-color: white;
+}
